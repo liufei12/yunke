@@ -2,7 +2,7 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">
-            <li {{if .activeC eq "member" }} class="active treeview" {{else}} class="treeview" {{end}} >
+            <li id="memberManage"  class="treeview">
                 <a href="#"><i class="fa fa-users"></i>
                     <span>用户管理</span>
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
@@ -14,7 +14,7 @@
                 </ul>
             </li>
 
-            <li  class="treeview" >
+            <li id="titleManage" class="treeview" >
                 <a href="#"><i class="fa fa-users"></i>
                     <span>文章管理</span>
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
@@ -22,13 +22,13 @@
                 <ul class="treeview-menu" id="titleMenu"></ul>
             </li>
 
-            <li  {{if .activeC eq "tc" }} class="active treeview" {{else}} class="treeview" {{end}}>
+            <li id="tcManage" class="treeview" >
                 <a href="#"><i class="fa fa-users"></i>
                     <span>分类管理</span>
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li  {{if .activeC eq "tc"}} class="active" {{end}} ><a href="/tc/list"><i class="fa fa-circle-o"></i> 文章分类 </a></li>
+                    <li><a href="/tc/list"><i class="fa fa-circle-o"></i> 文章分类 </a></li>
                 </ul>
             </li>
         </ul>
@@ -37,6 +37,20 @@
         <script>
 
             $(function () {
+
+                var query = decodeURI(window.location.pathname);
+                var pathname=query.split('/');
+                var active = pathname[1];
+                var method = pathname[2];
+                if(active == "member"){
+                    $("#memberManage").attr("class", "active treeview menu-open")
+                }
+                if(active == "title"){
+                    $("#titleManage").attr("class", "active treeview menu-open")
+                }
+                if(active == "tc"){
+                    $("#tcManage").attr("class", "active treeview menu-open")
+                }
 
                 //找出所有分类菜单
                 $.ajax({
