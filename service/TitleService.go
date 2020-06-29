@@ -62,6 +62,7 @@ func (ts *TitleService) GetByCondition(params map[string]interface{}) (*model.Ti
 
 }
 
+//删除
 func (ts *TitleService) DeleteById(id int64) bool {
 	td := dao.NewTitle()
 
@@ -69,4 +70,12 @@ func (ts *TitleService) DeleteById(id int64) bool {
 		return true
 	}
 	return false
+}
+
+//更新
+func (ts *TitleService) UpdateById(id int64, updateData *model.Title) bool {
+
+	td := dao.NewTitle()
+	res := td.UpdateById(id, updateData)
+	return res
 }

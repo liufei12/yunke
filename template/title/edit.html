@@ -1,8 +1,8 @@
-{{define "title/add.html"}}
+{{define "title/edit.html"}}
     <!DOCTYPE html>
     <html>
     <head>
-        <title>文章增加- 云课 - 专业的在线学习平台</title>
+        <title>文章编辑 - 云课 - 专业的在线学习平台</title>
         <meta name="title" content=" - 公告增加 - 云课 - 专业的在线学习平台">
         <meta name="keywords" content=" - 云课 - Yunke K12 在线学习 直播 云课网 在线教育">
         <meta name="description" content="云课(Yunke.com) -专业的K12在线学习平台。以直播授课为核心，打破时间与空间的界限，为教师高效教学、学生高效学习、家长高效管控及机构高效管理提供完美解决方案">
@@ -91,11 +91,11 @@
             <section class="content-header">
                 <h1>
                     <a href="/title/list?type=php"> << 返回文章列表</a>
-                    <small>添加文章</small>
+                    <small>编辑文章</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">添加文章</li>
+                    <li class="active">编辑文章</li>
                 </ol>
             </section>
             <section class="content">
@@ -108,10 +108,8 @@
                                     <form id="form" class="clearfix" action="" enctype="multipart/form-data">
                                         <div class="nl-release">
                                             <p>文章分类:</p>
-                                            <select name="cateId" style="width:150px;" class="form-control">
-                                                {{range $v := .List}}
-                                                    <option value="{{$v.Id}}">{{$v.Cname}}</option>
-                                                {{end}}
+                                            <select name="cateId" style="width:150px;" class="form-control" id="titleCate">
+
                                             </select>
                                         </div>
 
@@ -126,12 +124,12 @@
                                                 <script id="editor" type="text/plain" style="width:810px;height:400px;"></script>
                                             </div>
                                         </div>
-
-                                        <div class="nl-cement-release">
-                                        </div>
+                                        <div class="nl-cement-release"> </div>
                                         <div class="clear"></div>
+                                        <input type="hidden" id="titleId" value="" name="titleId" />
+                                        <input type="hidden" id="cateName" value="" name="cateName" />
                                     </form>
-                                    <button type="submit" id="subnotice">发布</button>
+                                    <button type="submit" id="subnotice">修改</button>
                                 </div>
                             </div>
                         </div>
@@ -149,127 +147,59 @@
 
         <script>
             var ue = UE.getEditor('editor');
-            /*var um = UM.getEditor('notice_content');
-            cate_type = "{isset($type)?$type:2}";*/
+
+            var id = "{{.id}}"
+            $.ajax({
+                url: '/title/ajaxdetail',
+                type: 'GET',
+                dataType: 'json',
+                data: {id: id}
+            }).done(function(res) {
+                console.log(res)
+                if(res.code == 0){
+
+                    var categoryList = res.data.categoryList
+                    var titleInfo = res.data.titleInfo
+                    var cateId = titleInfo.type_id
+
+                    $("#notice_title").val(titleInfo.name)
+                    $("#titleId").val(titleInfo.id)
+                    $("#editor").html(titleInfo.content)
+
+                    var html = "";
+                    for(var i=0; i<categoryList.length; i++) {
+                        if(categoryList[i].id == cateId){
+                            html += "<option selected value='" + categoryList[i].id + "'>" + categoryList[i].cname +  "</option>";
+                        }else{
+                            html += "<option value='" + categoryList[i].id + "'>" + categoryList[i].cname +  "</option>";
+                        }
+                    }
+                    $('#titleCate').html(html)
+                }else{
+                    console.log(res)
+                }
+            })
+
+            // console.log(cateList)
             $(function(){
                 $("#subnotice").click(function(){
-                    $.post("/title/create",$("#form").serialize(),function(r){
+                    var cateName = $("#titleCate").find("option:selected").text();
+                    $("#cateName").val(cateName)
+
+                    $.post("/title/update",$("#form").serialize(),function(r){
                         if(r.code){
                             layer.msg(r.msg);
-                            $("[name="+r.field+"]").focus();
                         }else{
-                            layer.msg("发布成功",{ icon: 1 },function(){
-                                // window.location.href="/platform.org.NoticeList?type="+cate_type;
-                                window.location.href="/title/add";
+                            console.log(r)
+                            var data = r.data;
+                            layer.msg("修改成功",{ icon: 1 },function(){
+                                window.location.href="/title/list?type="+data.cateName+"&typeId="+data.cateId;
                             });
                         }
                     },"json");
                 });
             });
 
-
-
-
-            function isFocus(e){
-                alert(UE.getEditor('editor').isFocus());
-                UE.dom.domUtils.preventDefault(e)
-            }
-            function setblur(e){
-                UE.getEditor('editor').blur();
-                UE.dom.domUtils.preventDefault(e)
-            }
-            function insertHtml() {
-                var value = prompt('插入html代码', '');
-                UE.getEditor('editor').execCommand('insertHtml', value)
-            }
-            function createEditor() {
-                enableBtn();
-                UE.getEditor('editor');
-            }
-            function getAllHtml() {
-                alert(UE.getEditor('editor').getAllHtml())
-            }
-            function getContent() {
-                var arr = [];
-                arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-                arr.push("内容为：");
-                arr.push(UE.getEditor('editor').getContent());
-                alert(arr.join("\n"));
-            }
-            function getPlainTxt() {
-                var arr = [];
-                arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
-                arr.push("内容为：");
-                arr.push(UE.getEditor('editor').getPlainTxt());
-                alert(arr.join('\n'))
-            }
-            function setContent(isAppendTo) {
-                var arr = [];
-                arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
-                UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
-                alert(arr.join("\n"));
-            }
-            function setDisabled() {
-                UE.getEditor('editor').setDisabled('fullscreen');
-                disableBtn("enable");
-            }
-            function setEnabled() {
-                UE.getEditor('editor').setEnabled();
-                enableBtn();
-            }
-            function getText() {
-                //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
-                var range = UE.getEditor('editor').selection.getRange();
-                range.select();
-                var txt = UE.getEditor('editor').selection.getText();
-                alert(txt)
-            }
-            function getContentTxt() {
-                var arr = [];
-                arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
-                arr.push("编辑器的纯文本内容为：");
-                arr.push(UE.getEditor('editor').getContentTxt());
-                alert(arr.join("\n"));
-            }
-            function hasContent() {
-                var arr = [];
-                arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
-                arr.push("判断结果为：");
-                arr.push(UE.getEditor('editor').hasContents());
-                alert(arr.join("\n"));
-            }
-            function setFocus() {
-                UE.getEditor('editor').focus();
-            }
-            function deleteEditor() {
-                disableBtn();
-                UE.getEditor('editor').destroy();
-            }
-            function disableBtn(str) {
-                var div = document.getElementById('btns');
-                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
-                for (var i = 0, btn; btn = btns[i++];) {
-                    if (btn.id == str) {
-                        UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
-                    } else {
-                        btn.setAttribute("disabled", "true");
-                    }
-                }
-            }
-            function enableBtn() {
-                var div = document.getElementById('btns');
-                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
-                for (var i = 0, btn; btn = btns[i++];) {
-                    UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
-                }
-            }
-            function getLocalData () {
-                alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
-            }
-            function clearLocalData () {
-                UE.getEditor('editor').execCommand( "clearlocaldata" );
-                alert("已清空草稿箱")
-            }
         </script>
 
         {{template "footer"}}

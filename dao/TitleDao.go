@@ -68,3 +68,12 @@ func (td *TitleDao) DeleteById(id int64) bool {
 	}
 	return true
 }
+
+//更新
+func (td *TitleDao) UpdateById(id int64, updateData *model.Title) bool {
+
+	if _, err := td.Id(id).Update(updateData); err != nil {
+		return false
+	}
+	return true
+}

@@ -8,7 +8,9 @@
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{if .activeC eq "member" .activeV eq "list"}} class="active" {{end}} ><a href="/member/list"><i class="fa fa-circle-o"></i> 所有用户 </a></li>
+                    <li {{if .activeC eq "member" .activeV eq "list"}} class="active" {{end}} >
+                        <a href="/member/list"><i class="fa fa-circle-o"></i> 所有用户 </a>
+                    </li>
                 </ul>
             </li>
 
@@ -43,7 +45,7 @@
                     dataType: 'json',
                     data: {}
                 }).done(function(res) {
-                    console.log(res)
+
                     if(res.code == 0){
                         var html = "";
                         var list = res.data

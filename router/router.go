@@ -53,9 +53,11 @@ func RegisterRouter(r *gin.Engine) *gin.Engine{
 		title := controller.TitleController{}
 		T.GET("list", title.List)
 		T.GET("detail", title.Detail)
+		T.GET("ajaxdetail", title.AjaxDetail)
 		T.GET("add", title.Add)
-		T.GET("edit", title.Edit)
 		T.POST("create", title.Create)
+		T.GET("edit", title.Edit)
+		T.POST("update", title.Update)
 		T.POST("imageUpload", title.UmeditorUpload)
 		T.GET("images", title.GetImage)
 		T.GET("delete", title.Delete)

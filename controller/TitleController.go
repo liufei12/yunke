@@ -55,6 +55,32 @@ func (t *TitleController) Detail(ctx *gin.Context){
 
 }
 
+func (t *TitleController) AjaxDetail(ctx *gin.Context){
+	id, _ := strconv.ParseInt(ctx.Query("id"), 10 ,64)
+
+	if id == 0 {
+		tool.Failed(ctx, "参数错误", "")
+	}
+
+	ts := service.TitleService{}
+	condition := map[string]interface{}{
+		"id": id,
+	}
+	info := ts.GetByCondition(condition)
+
+	tts := service.TitleCategoryService{}
+	categoryList := tts.List()
+
+	result := map[string]interface{}{
+		"titleInfo": info,
+		"categoryList": categoryList,
+	}
+
+	tool.Success(ctx, result)
+
+}
+
+//新增页面
 func (t *TitleController) Add(ctx *gin.Context) {
 
 	//查询文章分类
@@ -66,6 +92,7 @@ func (t *TitleController) Add(ctx *gin.Context) {
 	})
 }
 
+//新增
 func (t *TitleController) Create(ctx *gin.Context) {
 
 	cateId := ctx.PostForm("cateId")
@@ -73,6 +100,7 @@ func (t *TitleController) Create(ctx *gin.Context) {
 	content := ctx.PostForm("editorValue")
 
 	if cateId == "" || name=="" || content=="" {
+		tool.Failed(ctx, "新增失败", "")
 		return
 	}
 
@@ -159,9 +187,54 @@ func (t *TitleController) Delete (ctx *gin.Context) {
 	return
 }
 
-//编辑
+//编辑页面
 func (t *TitleController) Edit (ctx *gin.Context) {
-	
+	//查询文章分类
+	ts := service.TitleCategoryService{}
+	categoryList := ts.List()
+	id := ctx.Query("id")
+
+	ctx.HTML(http.StatusOK, "title/edit.html", gin.H{
+		"List" : categoryList,
+		"id": id,
+	})
+}
+
+//编辑
+func (t *TitleController) Update (ctx *gin.Context)  {
+	cateId := ctx.PostForm("cateId")
+	cateName := ctx.PostForm("cateName")
+	titleId ,_ := strconv.ParseInt(ctx.PostForm("titleId"), 10, 64)
+	name := ctx.PostForm("name")
+	content := ctx.PostForm("editorValue")
+
+	if cateId == "" || name=="" || content==""  || titleId == 0{
+		tool.Failed(ctx, "更新失败", "")
+		return
+	}
+
+	typeId,_ := strconv.Atoi(cateId)
+	tm := model.Title{
+		Name: name,
+		TypeId: int64(typeId),
+		Content: content,
+	}
+
+	ts := service.TitleService{}
+	result := ts.UpdateById(titleId, &tm)
+
+	if result == false {
+		tool.Failed(ctx, "更新失败", "")
+		return
+	}
+
+	cateInfo := map[string]string{
+		"cateId": cateId,
+		"cateName": cateName,
+	}
+
+	tool.Success(ctx, &cateInfo)
+	return
 }
 
 
