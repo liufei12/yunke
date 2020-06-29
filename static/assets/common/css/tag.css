@@ -1,0 +1,24 @@
+ .qudao-tab-but{
+	margin-bottom:10px;
+	margin-top:10px;
+	float:left;
+	width:100%;
+}
+.qudao-tab-but span{
+	width:100px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	float:left;
+	text-align:center;
+	margin-left:10px;
+	cursor:pointer;
+}
+.qudao-tab-but span:first-child{
+	margin-left:10px;
+}
+.qudao-tab-but span.curr{
+	background:#438eb9;
+	color:#fff;
+}

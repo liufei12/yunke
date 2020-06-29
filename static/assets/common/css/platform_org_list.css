@@ -1,0 +1,4 @@
+a{position:relative;}
+.info_css{display:none;color:red;width:200px;height:200px;background-color:#CDC;position:absolute;top:20px;left:20px;cursor:default;}
+a:hover .info_css{display:block;}
+

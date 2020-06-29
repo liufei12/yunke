@@ -1,0 +1,81 @@
+{{define "title/detail.html"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{template "header" .}}
+        <link rel="stylesheet" href="/static/assets/common/css/platform_org_list.css"/>
+        <style type="text/css">
+            .org_area_css{ width:140px; }
+            .star_end_cm{ width:100px;}
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        {{template "nav"}}
+        {{template "sidebar"}}
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    文章管理
+                    <small>文章详情</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">文章管理</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+
+                                <div class="join-info cGray2">
+{{/*                                    <h3 class="fs16">文章信息</h3>*/}}
+                                    <div class="pd-b30 wrap-form-select service_type">
+                                        <span class="span3 text-right" style="margin-left:26px;margin-right: 24px;">
+                                            标题： {{.info.Name}}
+                                        </span>
+                                        <div class="label-for" style="padding-left:15px;">
+
+                                        </div>
+                                    </div>
+                                    <div class="pd-b30 wrap-form-select service_type" style="margin-top: 10px">
+                                        <span class="span3 text-right" style="margin-left:26px;margin-right: 24px;">
+                                            类型： {{.info.Cname}}
+                                        </span>
+                                        <div class="label-for" style="padding-left:15px;">
+
+                                        </div>
+                                    </div>
+                                    <div class="pd-b30 wrap-form-select service_type" style="margin-top: 10px;padding-left: 25px;">
+                                        <span>内容：</span>
+                                        <span id="content" class="span3 text-left" style="margin-left:26px;margin-right: 24px;">
+
+                                        </span>
+                                        <div class="label-for" style="padding-left:15px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        {{template "footer"}}
+
+    </body>
+
+    <script>
+        var content = "{{.info.Content}}"
+        $(function () {
+            $('#content').html(content)
+        })
+    </script>
+    </html>
+{{end}}

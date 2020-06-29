@@ -1,0 +1,29 @@
+{
+    "app_name": "yunke",
+    "app_mode": "debug",
+    "app_host": "localhost",
+    "app_port": "8080",
+    "sms": {
+        "sign_name": "云课网",
+        "template_code": "SMS_176345443",
+        "app_key": "LASDFASDF13F23R234",
+        "app_secret": "ZHLASDFJIWE34232",
+        "region_id": "zh_hangzhou"
+    },
+    "database": {
+        "driver": "mysql",
+        "user": "root",
+        "password": "123456",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db_name": "yunke",
+        "charset": "utf8",
+        "show_sql": true
+    },
+    "redis": {
+        "addr": "127.0.0.1",
+        "port": "6379",
+        "password": "",
+        "db": 0
+    }
+}

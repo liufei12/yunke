@@ -1,0 +1,278 @@
+{{define "title/add.html"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>文章增加- 云课 - 专业的在线学习平台</title>
+        <meta name="title" content=" - 公告增加 - 云课 - 专业的在线学习平台">
+        <meta name="keywords" content=" - 云课 - Yunke K12 在线学习 直播 云课网 在线教育">
+        <meta name="description" content="云课(Yunke.com) -专业的K12在线学习平台。以直播授课为核心，打破时间与空间的界限，为教师高效教学、学生高效学习、家长高效管控及机构高效管理提供完美解决方案">
+        {{template "header" .}}
+        <style type="text/css">
+            .clearfix:before, .clearfix:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after { content: " "; display: table; }
+            .clearfix:after, .container:after, .container-fluid:after, .row:after { clear: both; }
+            .divselect.divselect-32 dl dd a { padding: 0 8px; line-height: 32px; height: 32px; }
+            ul,li{ list-style:none;}
+            .right-main {
+                padding: 0 15px 20px 15px;
+                border: 1px solid #e7e7e7;
+                background: #ffffff;
+            }
+            .fs16 {
+                font-size: 16px !important;
+            }
+            .fs14 {
+                font-size: 14px !important;
+            }
+
+            .btn {
+                display: inline-block;
+                text-align: center;
+                height: 30px;
+                padding: 0 25px;
+                line-height: 28px;
+                cursor: pointer;
+                border-radius: 3px;
+                color: #ffffff;
+                background: #ff7045;
+                border: 1px solid #ff7045;
+            }
+            .c-fr, .right {
+                float: right;
+            }
+            .p0 {
+                padding: 0px !important;
+            }
+            .tac {
+                text-align: center !important;
+            }
+            .mr5 {
+                margin-right: 5px !important;
+            }
+            .nl-notice-add {
+                padding: 28px 140px 28px 135px !important;
+            }
+            ul,li{  list-style: none;}
+            .nl-release { height: 35px; line-height: 35px; float: left; }
+            .nl-release p { float: left; font-size: 16px; margin-right: 5px; }
+            .nl-release-administration { float: left; margin-left: 20px; }
+            .nl-release-administration a { width: 100%; height: 30px; padding: 6px 10px 6px 10px; border: 1px solid #67b53d; line-height: 30px; position: relative; }
+            .nl-release-administration a span.release-icon { position: absolute; left: 4px; top: 7px; display: inline-block; background-image: url(../image/xxx.icon.png?v=a1442586cf); background-position: -424px -393px; width: 14px; height: 14px; }
+            .nl-release-administration a:hover { background-color: #61a93a; color: #ffffff; }
+            .nl-release-administration a:hover span.release-icon { display: inline-block; background-image: url(../image/xxx.icon.png?v=a1442586cf); background-position: -405px -393px; width: 14px; height: 14px; }
+            /*activity.main.list*/
+            .nl-notice-menu { width: 100%; background: #ffffff; border-top: 3px solid #fe8135; min-height: 200px; border-bottom: 0; }
+            .nl-notice-menu li { text-align: center; line-height: 40px; }
+            .nl-notice-menu li a:hover { color: #fe8135; }
+            .nl-notice-menu li.curr a { color: #fe8135; width: 100%; float: left; position: relative; }
+            .nl-notice-menu li.curr a span.nl-arrow-right { position: absolute; left: 170px; top: 16px; display: inline-block; background-image: url(../image/xxx.icon.png?v=a1442586cf); background-position: -108px -476px; width: 6px; height: 9px; }
+            .nl-notice-menu li.curr a:hover .help-arrow-icon { display: block; }
+            .nl-cement-title { width: 60%;clear:both; float: left; padding: 30px 0 0 0; }
+            .nl-cement-title p { font-size: 16px; }
+            .nl-cement-title p span { color: #999; }
+            .nl-cement-title input#notice_title { width: 100%; border: 1px solid #ccc; padding: 7px; margin-top: 10px; font-size: 14px; }
+            .nl-cement-text { float: left; padding-top: 25px; width: 100%; }
+            .nl-cement-text p { font-size: 16px; }
+            .nl-cement-text .cement-text-area textarea { width: 100%; float: left; border: 1px solid #ccc; padding: 15px; font-size: 14px; margin-top: 10px; }
+            .nl-cement-release { float: left; margin-top: 10px; width: 100%; }
+            .nl-cement-release a { width: 85px; height: 40px; background: #67b53d; float: left; text-align: center; line-height: 40px; color: #ffffff; font-size: 16px; }
+            .nl-cement-release a:hover { background: #61a93a; color: #ffffff; }
+            #subnotice,#savedraft { display: inline-block; text-align: center; height: 30px; padding: 0 25px; line-height: 28px; cursor: pointer; border-radius: 3px; color: #ffffff; background: #67b53d; font-size: 16px; border:0;}
+            #subnotice:hover { background: #61a93a; }
+            #savedraft{ margin-left:15px;background: #ccc;color:#f1f1f1;}
+            #savedraft:hover{ margin-left:15px;background: #999;color:#fff;}
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        {{template "nav"}}
+        {{template "sidebar"}}
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>
+                    <a href="/title/list?type=php"> << 返回文章列表</a>
+                    <small>添加文章</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">添加文章</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+
+                                <div class="content nl-notice-add">
+                                    <form id="form" class="clearfix" action="" enctype="multipart/form-data">
+                                        <div class="nl-release">
+                                            <p>文章分类:</p>
+                                            <select name="cateId" style="width:150px;" class="form-control">
+                                                {{range $v := .List}}
+                                                    <option value="{{$v.Id}}">{{$v.Cname}}</option>
+                                                {{end}}
+                                            </select>
+                                        </div>
+
+                                        <div class="nl-cement-title">
+                                            <p>标题<span>50字以内</span></p>
+                                            <p><input type="text" class="form-control" placeholder="请输入标题" name="name" id="notice_title" value=""></p>
+                                        </div>
+
+                                        <div class="nl-cement-text">
+                                            <p>正文</p>
+                                            <div class="cement-text-area">
+                                                <script id="editor" type="text/plain" style="width:810px;height:400px;"></script>
+                                            </div>
+                                        </div>
+
+                                        <div class="nl-cement-release">
+                                        </div>
+                                        <div class="clear"></div>
+                                    </form>
+                                    <button type="submit" id="subnotice">发布</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.min.js"> </script>
+        <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+        <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+        <script type="text/javascript" charset="utf-8" src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+        <script>
+            var ue = UE.getEditor('editor');
+            /*var um = UM.getEditor('notice_content');
+            cate_type = "{isset($type)?$type:2}";*/
+            $(function(){
+                $("#subnotice").click(function(){
+                    $.post("/title/create",$("#form").serialize(),function(r){
+                        if(r.code){
+                            layer.msg(r.msg);
+                            $("[name="+r.field+"]").focus();
+                        }else{
+                            layer.msg("发布成功",{ icon: 1 },function(){
+                                // window.location.href="/platform.org.NoticeList?type="+cate_type;
+                                window.location.href="/title/add";
+                            });
+                        }
+                    },"json");
+                });
+            });
+
+
+
+
+            function isFocus(e){
+                alert(UE.getEditor('editor').isFocus());
+                UE.dom.domUtils.preventDefault(e)
+            }
+            function setblur(e){
+                UE.getEditor('editor').blur();
+                UE.dom.domUtils.preventDefault(e)
+            }
+            function insertHtml() {
+                var value = prompt('插入html代码', '');
+                UE.getEditor('editor').execCommand('insertHtml', value)
+            }
+            function createEditor() {
+                enableBtn();
+                UE.getEditor('editor');
+            }
+            function getAllHtml() {
+                alert(UE.getEditor('editor').getAllHtml())
+            }
+            function getContent() {
+                var arr = [];
+                arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+                arr.push("内容为：");
+                arr.push(UE.getEditor('editor').getContent());
+                alert(arr.join("\n"));
+            }
+            function getPlainTxt() {
+                var arr = [];
+                arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+                arr.push("内容为：");
+                arr.push(UE.getEditor('editor').getPlainTxt());
+                alert(arr.join('\n'))
+            }
+            function setContent(isAppendTo) {
+                var arr = [];
+                arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+                UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+                alert(arr.join("\n"));
+            }
+            function setDisabled() {
+                UE.getEditor('editor').setDisabled('fullscreen');
+                disableBtn("enable");
+            }
+            function setEnabled() {
+                UE.getEditor('editor').setEnabled();
+                enableBtn();
+            }
+            function getText() {
+                //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+                var range = UE.getEditor('editor').selection.getRange();
+                range.select();
+                var txt = UE.getEditor('editor').selection.getText();
+                alert(txt)
+            }
+            function getContentTxt() {
+                var arr = [];
+                arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+                arr.push("编辑器的纯文本内容为：");
+                arr.push(UE.getEditor('editor').getContentTxt());
+                alert(arr.join("\n"));
+            }
+            function hasContent() {
+                var arr = [];
+                arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+                arr.push("判断结果为：");
+                arr.push(UE.getEditor('editor').hasContents());
+                alert(arr.join("\n"));
+            }
+            function setFocus() {
+                UE.getEditor('editor').focus();
+            }
+            function deleteEditor() {
+                disableBtn();
+                UE.getEditor('editor').destroy();
+            }
+            function disableBtn(str) {
+                var div = document.getElementById('btns');
+                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+                for (var i = 0, btn; btn = btns[i++];) {
+                    if (btn.id == str) {
+                        UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+                    } else {
+                        btn.setAttribute("disabled", "true");
+                    }
+                }
+            }
+            function enableBtn() {
+                var div = document.getElementById('btns');
+                var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+                for (var i = 0, btn; btn = btns[i++];) {
+                    UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+                }
+            }
+            function getLocalData () {
+                alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+            }
+            function clearLocalData () {
+                UE.getEditor('editor').execCommand( "clearlocaldata" );
+                alert("已清空草稿箱")
+            }
+        </script>
+
+        {{template "footer"}}
+    </body>
+    </html>
+{{end}}

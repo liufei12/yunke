@@ -1,0 +1,244 @@
+{{define "user/list.html"}}
+<!DOCTYPE html>
+<html>
+<head>
+    {{template "header" .}}
+    <link rel="stylesheet" href="/static/assets/common/css/platform_org_list.css"/>
+    <style type="text/css">
+        .org_area_css{ width:140px; }
+        .star_end_cm{ width:100px;}
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {{template "nav"}}
+    {{template "sidebar"}}
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                用户
+                <small>用户列表</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">用户管理</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <form class="form-inline" action="/member/list" method="get" id="search-form">
+                                <input type="text" class="org_area_css form-control" name="uid" placeholder="用户ID" value="{{.uid}}">
+                                <input type="text" class="org_area_css form-control" name="name" placeholder="姓名" value="{{.name}}">
+                                <input type="text" class="org_area_css form-control" name="phone" placeholder="手机号" value="{{.phone}}">
+                                <button type="submit" class="btn btn-primary">搜索</button>
+                                <a class="btn btn-default" href="{$export_url}">导出</a>
+                            </form>
+                            <table id="table-user" class="table table-bordered table-striped show-grid">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>手机</th>
+                                    <th>注册时间</th>
+                                    <th>体重</th>
+                                    <th>居住地址</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{range $v := .MemberList }}
+                                        <tr>
+                                            <td>{{$v.Id}}</td>
+                                            <td>{{$v.UserName}}</td>
+                                            <td>{{$v.Phone}}</td>
+                                            <td>{{$v.RegisterTime}}</td>
+                                            <td>{{$v.Balance}}</td>
+                                            <td>{{$v.City}}</td>
+                                            <td>
+                                                {{if eq $v.IsActive 0}}
+                                                    正常
+                                                {{else}}
+                                                    停用
+                                                {{end}}
+                                            </td>
+                                            <td>删除</td>
+                                        </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                            <div>
+
+                                <div style="padding-top:10px">
+                                    <a class="btn btn-danger" href="javascript:void(0)" role="button" id="btn-user-add" data-toggle="modal" data-target="#window-user-create1"><i class="icon-plus icon-large"></i>添加用户</a>
+                                </div>
+
+                                <div>
+                                    <div id="user_page" class="text-center">
+                                        <script>
+                                            // page("user_page","{$path_url}",{$num},{$list->page},{$list->total});
+                                            page("user_page",{{.path}},{{.length}},{{.page}},{{.total}});
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal fade" id="window-user-create1"  tabindex="-1" role="dialog" aria-labelledby="window-user-create1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding-bottom:0px;padding-top:0px;">
+                        <button type="button" class="close" style="padding-top:15px;" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3>添加学生</h3>
+                    </div>
+                    <div class="modal-body" style="height:400px;overflow:auto;">
+                        <form class="form-horizontal" name = 'user'>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2" >用户名</label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="label-1" class="form-control" placeholder="用户名" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">性别</label>
+                                <div class="col-sm-5">
+                                    <select name="gender" class="form-control" id="label-9">
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">手机号</label>
+                                <div class="col-sm-5">
+                                    <textarea rows="3" cols="20"class="form-control" name='mobile' style="height:250px;"></textarea><p class="error" style="color:red"></p>
+                                    <p style="color:red">
+                                        备注:1.添加格式:手机号+姓名 逗号分隔 样例:13011111111,姓名<br/>
+                                        2.添加成功后短信方式发送用户名和密码,已经注册的手机号不能添加。
+                                    </p>
+                                </div>
+                            </div>
+                            <input type="hidden" placeholder="" name="student" value='1'>
+                            <input type="hidden" placeholder="" name="teacher" value='0'>
+                            <input type="hidden" placeholder="" name="organization" value='0'>
+                            <div class="alert alert-block alert-error fade in hide">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4 class="alert-heading"></h4>
+                                <p></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-user-close" data-dismiss="modal" aria-hidden="true">关闭</button>
+                        {if($showData['add'] == 1)}
+                        <button class="btn btn-primary">添加</button>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="window-user-update1"  tabindex="-1" role="dialog" aria-labelledby="window-user-update1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"  style="padding-bottom:0px;padding-top:0px;">
+                        <button type="button" class="close" style="padding-top:15px;" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3>修改学生</h3>
+                    </div>
+                    <div class="modal-body" style="max-height:500px">
+                        <form class="form-horizontal" name = 'user'>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">学号</label>
+                                <div class="col-sm-5">
+                                    <span class="student_number"></span>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="form-group">
+                              <label class="control-label col-sm-2 col-md-offset-2">用户名</label>
+                              <div class="col-sm-5">
+                                <input type="text" id="label-1" class="form-control" placeholder="" name="name">
+                              </div>
+                            </div>
+                            -->
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">真实姓名</label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="label-2" class="form-control" placeholder="" name="real_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">手机号</label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="label-4" class="form-control" placeholder="" name="mobile">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">性别</label>
+                                <div class="col-sm-5">
+                                    <select name="gender" class="form-control" id="label-9">
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">状态</label>
+                                <div class="col-sm-5">
+                                    <select name="status" class="form-control" id="label-10">
+                                        <option value="normal">正常</option>
+                                        <option value="disabled">禁用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" placeholder="" name="uid">
+                            <div class="alert alert-block alert-error fade in hide">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4 class="alert-heading"></h4>
+                                <p></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-user-close" data-dismiss="modal" aria-hidden="true">关闭</button>
+                        {if($showData['update'] == 1)}
+                        <button class="btn btn-primary">修改</button>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{template "footer"}}
+    <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/static/assets/mgr/js/user.js"></script>
+</body>
+<script>
+    $(function(){
+        //发送密码
+        $(".sendPassword").click(function(event){
+            if(confirm('确认发送密码吗？')){
+                var uid = $(this).parents('td').find("input[name=uid]").val();
+                var mobile = $(this).parents('tr').find("input[name=mobile]").val();
+                $.post('/user/main/sendStudentPassword', { uid:uid,mobile:mobile }).done(function(data){
+                    data =jQuery.parseJSON(data);
+                    if (data && data.code == 0) {
+                        layer.msg('发送成功');
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                })
+            }
+        });
+    });
+</script>
+</html>
+{{end}}

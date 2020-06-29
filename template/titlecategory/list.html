@@ -1,0 +1,183 @@
+{{define "titlecategory/list.html"}}
+<!DOCTYPE html>
+<html>
+<head>
+    {{template "header" .}}
+    <link rel="stylesheet" href="/static/assets/common/css/platform_org_list.css"/>
+    <style type="text/css">
+        .org_area_css{ width:140px; }
+        .star_end_cm{ width:100px;}
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {{template "nav"}}
+    {{template "sidebar"}}
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                文章分类
+                <small>分类列表</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">文章分类管理</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+
+                            <table id="table-user" class="table table-bordered table-striped show-grid">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>描述</th>
+                                    <th>添加时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{range $v := .categoryList }}
+                                        <tr>
+                                            <td>{{$v.Id}}</td>
+                                            <td>{{$v.Cname}}</td>
+                                            <td>{{$v.Decription}}</td>
+                                            <td>{{$v.CreateTime}}</td>
+                                            <td>
+                                                {{if eq $v.Status 0}}
+                                                    正常
+                                                {{else}}
+                                                    停用
+                                                {{end}}
+                                            </td>
+                                            <td>
+                                                禁用
+                                                <a class="green action-edit" href="#" id="{{$v.Id}}" title="修改" data-toggle="modal" data-target="#window-user-update1">
+                                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                            <div>
+                                <div style="padding-top:10px">
+                                    <a class="btn btn-danger" href="javascript:void(0)" role="button" id="btn-user-add" data-toggle="modal" data-target="#window-user-create1"><i class="icon-plus icon-large"></i>添加分类</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal fade" id="window-user-create1"  tabindex="-1" role="dialog" aria-labelledby="window-user-create1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding-bottom:0px;padding-top:0px;">
+                        <button type="button" class="close" style="padding-top:15px;" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3>添加分类</h3>
+                    </div>
+                    <div class="modal-body" style="height:400px;overflow:auto;">
+                        <form class="form-horizontal" name = 'user'>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2" >标题</label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="label-1" class="form-control" placeholder="标题" name="cname">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-md-offset-2">描述</label>
+                                <div class="col-sm-5">
+                                    <textarea rows="3" cols="20"class="form-control" name='decription' style="height:250px;"></textarea>
+                                    <p class="error" style="color:red"></p>
+                                    <p style="color:red">
+                                        备注:添加分类描述
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="alert alert-block alert-error fade in hide">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4 class="alert-heading"></h4>
+                                <p></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-user-close" data-dismiss="modal" aria-hidden="true">关闭</button>
+                        <button class="btn btn-primary">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="window-user-update1"  tabindex="-1" role="dialog" aria-labelledby="window-user-update1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"  style="padding-bottom:0px;padding-top:0px;">
+                        <button type="button" class="close" style="padding-top:15px;" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3>修改分类</h3>
+                    </div>
+                    <div class="modal-body" style="max-height:500px">
+                        <form class="form-horizontal" name = 'user'>
+
+                            <div class="modal-body" style="height:400px;overflow:auto;">
+                                <form class="form-horizontal" name = 'user'>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2 col-md-offset-2" >Id</label>
+                                        <div class="col-sm-5 id_div">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2 col-md-offset-2" >标题</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" id="label-1" class="form-control" placeholder="标题" name="cname">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2 col-md-offset-2">描述</label>
+                                        <div class="col-sm-5">
+                                            <textarea rows="3" cols="20" class="form-control" name='decription' style="height:250px;"></textarea>
+                                            <p class="error" style="color:red"></p>
+                                            <p style="color:red">
+                                                备注:添加分类描述
+                                            </p>
+                                        </div>
+                                    </div>
+
+                            <input type="hidden" placeholder="" name="id">
+                            <div class="alert alert-block alert-error fade in hide">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <h4 class="alert-heading"></h4>
+                                <p></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-user-close" data-dismiss="modal" aria-hidden="true">关闭</button>
+                        <button class="btn btn-primary">修改</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{template "footer"}}
+    <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- <script src="/static/assets/mgr/js/user.js"></script> -->
+    <script src="/static/assets/mgr/js/titlecategory.js"></script>
+
+</body>
+
+</html>
+{{end}}

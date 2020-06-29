@@ -1,0 +1,64 @@
+{{define "sidebar"}}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+            <li {{if .activeC eq "member" }} class="active treeview" {{else}} class="treeview" {{end}} >
+                <a href="#"><i class="fa fa-users"></i>
+                    <span>用户管理</span>
+                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li {{if .activeC eq "member" .activeV eq "list"}} class="active" {{end}} ><a href="/member/list"><i class="fa fa-circle-o"></i> 所有用户 </a></li>
+                </ul>
+            </li>
+
+            <li  class="treeview" >
+                <a href="#"><i class="fa fa-users"></i>
+                    <span>文章管理</span>
+                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu" id="titleMenu"></ul>
+            </li>
+
+            <li  {{if .activeC eq "tc" }} class="active treeview" {{else}} class="treeview" {{end}}>
+                <a href="#"><i class="fa fa-users"></i>
+                    <span>分类管理</span>
+                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li  {{if .activeC eq "tc"}} class="active" {{end}} ><a href="/tc/list"><i class="fa fa-circle-o"></i> 文章分类 </a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <script src="/static/assets/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+        <script>
+
+            $(function () {
+
+                //找出所有分类菜单
+                $.ajax({
+                    url: '/tc/ajaxlist',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {}
+                }).done(function(res) {
+                    console.log(res)
+                    if(res.code == 0){
+                        var html = "";
+                        var list = res.data
+                        for(var i=0; i<list.length; i++) {
+                            html += '<li><a href="/title/list?type=' + list[i].cname + '&typeId=' + list[i].id + '"><i class="fa fa-circle-o"></i> ' + list[i].cname + '</a></li>';
+                        }
+                        $('#titleMenu').html(html)
+                    }else{
+                        console.log(res)
+                    }
+                })
+            })
+
+        </script>
+
+    </section>
+</aside>
+{{end}}

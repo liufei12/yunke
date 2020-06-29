@@ -1,0 +1,102 @@
+{{define "title/list.html"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{template "header" .}}
+        <link rel="stylesheet" href="/static/assets/common/css/platform_org_list.css"/>
+        <style type="text/css">
+            .org_area_css{ width:140px; }
+            .star_end_cm{ width:100px;}
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        {{template "nav"}}
+        {{template "sidebar"}}
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    文章
+                    <small>{{.type}}文章列表</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">文章管理</li>
+                </ol>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+
+                                <table id="table-user" class="table table-bordered table-striped show-grid">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>名称</th>
+                                        <th>添加时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{range $v := .List }}
+                                        <tr>
+                                            <td>{{$v.Id}}</td>
+                                            <td><a href="/title/detail?id={{$v.Id}}" target="_blank">{{$v.Name}}</a></td>
+                                            <td>{{$v.CreateTime}}</td>
+                                            <td>
+                                                <a class="green action-del" href="javascript:void(0);" data-id="{{$v.Id}}" title="删除" data-toggle="modal" data-target="#window-user-update1">
+                                                    删除
+                                                </a>
+                                                <a class="green action-edit" href="javascript:void(0);"  data-id="{{$v.Id}}" title="修改" data-toggle="modal" data-target="#window-user-update1">
+                                                    修改
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {{end}}
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <div style="padding-top:10px">
+                                        <a class="btn btn-danger" href="/title/add" role="button" id="btn-user-add" data-toggle="modal"><i class="icon-plus icon-large"></i>添加文章</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        {{template "footer"}}
+        <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+        <script src="/static/assets/common/third_party/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+        <script>
+            $(".action-del").click(function () {
+                if(!window.confirm("您确定删除此记录吗")){
+                    return false;
+                }
+
+                var id = $(this).attr("data-id")
+
+                $.ajax({
+                    url: '/title/delete',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {id: id}
+                }).done(function(res) {
+                    console.log(res)
+                    if(res.code == 0){
+                        location.reload();
+                    }else{
+                        alert("删除失败")
+                    }
+                })
+
+            })
+        </script>
+    </body>
+    </html>
+{{end}}
