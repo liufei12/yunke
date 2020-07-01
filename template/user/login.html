@@ -34,7 +34,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg" style="font-size: 35px;font-weight: bold;">登录</p>
-        <form class="form-signin" action='/user/verify' method="post" autocomplete="off">
+        <form class="form-signin" id="form" autocomplete="off">
             <div class="form-group has-feedback">
                 <input class="form-control" name="name" type="text" placeholder="用户名">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -53,7 +53,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4" style="margin-top:7px;">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    <button type="button" class="btn btn-primary btn-block btn-flat" id="loginBut">登录</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -72,6 +72,16 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' /* optional */
         });
+
+        $('#loginBut').click(function () {
+            $.post("/user/verify",$("#form").serialize(),function(r){
+                if(r.code){
+                    alert('登录失败')
+                }else{
+                    window.location.href="/title/list";
+                }
+            },"json");
+        })
     });
 </script>
 </body>

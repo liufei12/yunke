@@ -30,6 +30,19 @@ func SetSess(context *gin.Context, key interface{}, value interface{}) error  {
 	session.Set(key, value)
 	return session.Save()
 }
+
+// delete
+func DelSess(context *gin.Context, key interface{}) bool {
+
+	session := sessions.Default(context)
+
+	if session == nil {
+		return false
+	}
+	session.Delete(key)
+	return  true
+}
+
 // get
 func GetSess(context *gin.Context, key interface{}) interface{} {
 	session := sessions.Default(context)

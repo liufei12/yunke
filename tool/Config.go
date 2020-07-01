@@ -13,7 +13,7 @@ type Config struct{
 	AppPort string `json:"app_port"`
 	Sms     SmsConfig `json:"sms"`
 	Database DatabaseConfig `json:"database"`
-	RedisConfig RedisConfig `json:"redis_config"`
+	RedisConfig RedisConfig `json:"redis"`
 }
 
 var PageLength = 5  //定义全局分页条数

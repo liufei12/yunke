@@ -1,14 +1,18 @@
 package tool
 
 /*import (
+	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
+	"log"
+	"time"
 )
+
 
 type RedisStore struct {
 	client *redis.Client
-}*/
+}
 
-/*var RediStore RedisStore
+var RediStore RedisStore
 
 func InitRedisStore() *RedisStore {
 	config := GetConfig().RedisConfig

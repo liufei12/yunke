@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs">{$user_name}</span>
+                        <span class="hidden-xs" id="user_name"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -27,7 +27,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/admin/main/logout" class="btn btn-default btn-flat"><i class="fa fa-power-off text-yellow"></i>注销</a>
+                                    <a href="/user/logout" class="btn btn-default btn-flat"><i class="fa fa-power-off text-yellow"></i>注销</a>
                                 </li>
                             </ul>
                         </li>
@@ -35,6 +35,23 @@
                 </li>
             </ul>
         </div>
+        <script>
+            $.ajax({
+                url: '/user/userinfo',
+                type: 'GET',
+                dataType: 'json',
+                data: {}
+            }).done(function(res) {
+                console.log(res)
+                if(res.code == 0){
+
+                    var user_name = res.data.user_name
+                    $('#user_name').html(user_name)
+                }else{
+                    console.log(res)
+                }
+            })
+        </script>
     </nav>
 </header>
 {{end}}

@@ -25,7 +25,7 @@ func OrmEngine(cfg *Config)(*Orm, error)  {
 	//创建数据库
 	err = engine.Sync2(
 		new(model.SmsCode),
-		new(model.Member),
+		//new(model.Member),
 		new(model.FoodCatagory),
 		new(model.TitleCategory),
 		new(model.Title),

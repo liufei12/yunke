@@ -25,14 +25,11 @@ func main()  {
 	//初始化redis配置
 	//tool.InitRedisStore()
 
-	//集成session
-	//tool.InitSession(r)
+	//集成session  集成redis
+	tool.InitSession(r)
 
 	//注册路由
 	r = router.RegisterRouter(r)
-
-	//集成redis
-	//tool.InitSession(r)
 
 	r.Run(cfg.AppHost + ":" + cfg.AppPort)
 }

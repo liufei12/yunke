@@ -48,11 +48,11 @@
                                             <td><a href="/title/detail?id={{$v.Id}}" target="_blank">{{$v.Name}}</a></td>
                                             <td>{{$v.CreateTime}}</td>
                                             <td>
-                                                <a class="green action-del" href="javascript:void(0);" data-id="{{$v.Id}}" title="删除" data-toggle="modal" data-target="#window-user-update1">
-                                                    删除
-                                                </a>
                                                 <a class="green action-edit" href="/title/edit?id={{$v.Id}}"  data-id="{{$v.Id}}" title="修改" >
-                                                    修改
+                                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                                <a class="green action-del" href="javascript:void(0);" data-id="{{$v.Id}}" title="删除" data-toggle="modal" data-target="#window-user-update1">
+                                                    <i class="fa fa-close fa-lg"></i>
                                                 </a>
                                             </td>
                                         </tr>

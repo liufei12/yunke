@@ -4,24 +4,19 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
-	"strings"
 	"yunke/service"
 	"yunke/tool"
+	"yunke/model"
 )
 
 type LoginController struct {
 
 }
 
-func NewLoginController() Console {
+func NewLoginController()  *LoginController {
 	return &LoginController{}
 }
 
-type Console interface {
-	Login(*gin.Context)
-	LoginVerify(*gin.Context)
-}
 
 func (lc *LoginController) MyValidate() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -52,23 +47,50 @@ func (lc *LoginController) LoginVerify(ctx *gin.Context) {
 	//3 登录
 	us := service.MemberService{}
 	member := us.UserLogin(name, password)
+	if member == nil {
+		tool.Failed(ctx, "登录失败", "")
+		return
+	}
 	if member.Id != 0 {
 		//用户信息保存到session中
-		sess, _ := json.Marshal(member)
-		//key := "user_" + string(member.Id)
-		var keyTem strings.Builder
-		keyTem.WriteString("user_")
-		keyTem.WriteString(strconv.Itoa(int(member.Id)))
-		key := keyTem.String()
 
-		err := tool.SetSess(ctx, key, sess)
+		sessKey := "member"
+		sessVal, _:= json.Marshal(member)
+		err := tool.SetSess(ctx, sessKey, sessVal)
 		if err != nil {
 			tool.Failed(ctx, "登录失败", "")
 		}
+
 		tool.Success(ctx, &member)
 		return
 	}
-	tool.Failed(ctx, "登录失败", "")
+}
+
+//退出登录
+func (lc *LoginController) Logout(ctx *gin.Context) {
+
+	r := tool.DelSess(ctx, "member")
+	if r == true {
+		//跳转首页
+		ctx.Redirect(http.StatusMovedPermanently,"/user/login")
+	}
+	ctx.Redirect(http.StatusMovedPermanently,"/title/list")
+
+}
+
+func (lc *LoginController) UserInfo(ctx *gin.Context){
+	memberInfo := tool.GetSess(ctx, "member")
+
+	if memberInfo == nil {
+		//未登陆
+		tool.Failed(ctx, "没有用户信息", "")
+		return
+	}
+
+	var member model.Member
+	json.Unmarshal(memberInfo.([]byte), &member)
+	tool.Success(ctx, &member)
 	return
+
 
 }
