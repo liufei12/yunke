@@ -97,7 +97,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="padding-bottom:0px;padding-top:0px;">
                         <button type="button" class="close" style="padding-top:15px;" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3>添加学生</h3>
+                        <h3>添加用户</h3>
                     </div>
                     <div class="modal-body" style="height:400px;overflow:auto;">
                         <form class="form-horizontal" name = 'user'>
@@ -121,8 +121,6 @@
                                 <div class="col-sm-5">
                                     <textarea rows="3" cols="20"class="form-control" name='mobile' style="height:250px;"></textarea><p class="error" style="color:red"></p>
                                     <p style="color:red">
-                                        备注:1.添加格式:手机号+姓名 逗号分隔 样例:13011111111,姓名<br/>
-                                        2.添加成功后短信方式发送用户名和密码,已经注册的手机号不能添加。
                                     </p>
                                 </div>
                             </div>
@@ -138,9 +136,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-user-close" data-dismiss="modal" aria-hidden="true">关闭</button>
-                        {if($showData['add'] == 1)}
                         <button class="btn btn-primary">添加</button>
-                        {/if}
                     </div>
                 </div>
             </div>

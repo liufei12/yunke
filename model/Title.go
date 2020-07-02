@@ -12,7 +12,7 @@ type Title struct {
 	//文章类型关联Id
 	TypeId        int64	`xorm:"not null default 0 bigint(20)" json:"type_id"`
 	//状态
-	Status		int8	`xorm:"not null default 0 tinyint(3)" json:"status"`
+	Status		int8	`xorm:"not null default 1 tinyint(3)" json:"status"`
 	//创建时间
 	CreateTime	string	`xorm:"not null default CURRENT_TIMESTAMP timestamp" json:"create_time"`
 }

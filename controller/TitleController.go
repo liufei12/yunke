@@ -109,6 +109,7 @@ func (t *TitleController) Create(ctx *gin.Context) {
 		Name: name,
 		TypeId: int64(typeId),
 		Content: content,
+		Status: 1,
 		CreateTime: time.Now().Format("2006-01-03 15:01:02"),
 	}
 
