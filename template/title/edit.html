@@ -165,7 +165,12 @@
 
                     $("#notice_title").val(titleInfo.name)
                     $("#titleId").val(titleInfo.id)
-                    $(".edui-editor-iframeholder").html(titleInfo.content)
+
+                    ue.ready(function() {
+                        //设置编辑器的内容
+                        ue.setContent(titleInfo.content);
+
+                    });
 
                     var html = "";
                     for(var i=0; i<categoryList.length; i++) {
