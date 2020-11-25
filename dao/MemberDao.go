@@ -2,8 +2,8 @@ package dao
 
 import (
 	"fmt"
-	"yunke/model"
-	"yunke/tool"
+	"model"
+	"tool"
 	//"github.com/goes/logger"  //这个库网站找不到了
 )
 

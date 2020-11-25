@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-	"yunke/dao"
-	"yunke/model"
-	"yunke/param"
-	"yunke/tool"
+	"dao"
+	"model"
+	"param"
+	"tool"
 )
 
 type MemberService struct {

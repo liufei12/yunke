@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"yunke/model"
-	"yunke/tool"
+	"model"
+	"tool"
 )
 
 type FoodCategoryDao struct {

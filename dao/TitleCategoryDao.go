@@ -2,8 +2,8 @@ package dao
 
 import (
 	"fmt"
-	"yunke/model"
-	"yunke/tool"
+	"model"
+	"tool"
 )
 
 type TitleCategoryDao struct {

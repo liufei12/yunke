@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"yunke/service"
-	"yunke/tool"
-	"yunke/model"
+	"service"
+	"tool"
+	"model"
 )
 
 type LoginController struct {

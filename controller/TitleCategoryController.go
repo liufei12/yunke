@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-	"yunke/service"
-	"yunke/tool"
+	"service"
+	"tool"
 )
 
 type TitleCategoryController struct {

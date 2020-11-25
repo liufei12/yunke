@@ -3,8 +3,13 @@ module yunke
 go 1.14
 
 replace proto_pub/user => ./proto_pub/user
-
 replace proto_pub/common => ./proto_pub/common
+replace service => ./service
+replace tool => ./tool
+replace router => ./router
+replace model => ./model
+replace param => ./param
+replace dao => ./dao
 
 require (
 	github.com/gin-contrib/sessions v0.0.3
@@ -22,4 +27,10 @@ require (
 	gopkg.in/olivere/elastic.v6 v6.2.34
 	proto_pub/common v0.0.0-00010101000000-000000000000
 	proto_pub/user v0.0.0-00010101000000-000000000000
+	service v0.0.0-00010101000000-000000000000
+	tool v0.0.0-00010101000000-000000000000
+	model v0.0.0-00010101000000-000000000000
+	param v0.0.0-00010101000000-000000000000
+	router v0.0.0-00010101000000-000000000000
+	dao v0.0.0-00010101000000-000000000000
 )

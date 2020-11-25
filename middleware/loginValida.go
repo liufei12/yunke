@@ -6,7 +6,7 @@ import (
 
 	/*"net/http"
 	"yunke/gin/api"*/
-	"yunke/tool"
+	"tool"
 )
 
 func Login(routerAsName string)  gin.HandlerFunc {

@@ -3,8 +3,8 @@ package controller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"yunke/service"
-	"yunke/tool"
+	"service"
+	"tool"
 )
 
 type FoodCatrgoryController struct {

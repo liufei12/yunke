@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-	"yunke/param"
-	"yunke/service"
-	"yunke/tool"
+	"param"
+	"service"
+	"tool"
 )
 
 type MemberController struct {

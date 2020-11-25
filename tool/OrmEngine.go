@@ -2,7 +2,7 @@ package tool
 
 import (
 	"github.com/go-xorm/xorm"
-	"yunke/model"
+	"model"
 	_ "github.com/go-sql-driver/mysql"
 )
 

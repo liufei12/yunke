@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"yunke/router"
-	"yunke/tool"
+	"router"
+	"tool"
 )
 
 func main()  {

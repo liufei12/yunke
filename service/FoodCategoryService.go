@@ -1,8 +1,8 @@
 package service
 
 import (
-	"yunke/dao"
-	"yunke/model"
+	"dao"
+	"model"
 )
 
 type FoodCategoryService struct {
