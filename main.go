@@ -7,7 +7,6 @@ import (
 )
 
 func main()  {
-
 	cfg, err := tool.ParseConfig("./config/app.json")
 
 	if err != nil{
@@ -23,7 +22,7 @@ func main()  {
 	r := gin.Default();
 
 	//初始化redis配置
-	//tool.InitRedisStore()
+	tool.InitRedisStore()
 
 	//集成session  集成redis
 	tool.InitSession(r)

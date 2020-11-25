@@ -66,5 +66,10 @@ func RegisterRouter(r *gin.Engine) *gin.Engine{
 		T.GET("delete", m2.Login("title/delete"), title.Delete)
 	}
 
+	Ec := r.Group("excise")
+	{
+		e := controller.ExciseController{}
+		Ec.GET("one", e.ExciseOne)
+	}
 	return  r
 }

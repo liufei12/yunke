@@ -1,8 +1,8 @@
 package tool
 
-/*import (
-	"github.com/gin-gonic/gin"
+import (
 	"github.com/go-redis/redis"
+	//"github.com/mojocn/base64Captcha"
 	"log"
 	"time"
 )
@@ -25,34 +25,34 @@ func InitRedisStore() *RedisStore {
 	})
 	RediStore = RedisStore{client: client}
 	//base64Captcha.SetCustomStore(&RediStore)
-	base64Captcha.SetCustomStore(&RediStore)
+	//base64Captcha.SetCustomStore(&RediStore)
 
 	return &RediStore
 
 }
 
-func (rs *RedisStore) Set(ctx *gin.Context,id string, value string)  {
-	err := rs.client.Set(ctx, id, value, time.Minute*10).Err()
+func (rs *RedisStore) Set(id string, value string)  {
+	err := rs.client.Set(id, value, time.Minute*10).Err()
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-func (rs *RedisStore) Get(ctx *gin.Context,id string, clear bool) string {
-	val, err := rs.client.Get(ctx, id).Result()
+func (rs *RedisStore) Get(id string, clear bool) string {
+	val, err := rs.client.Get(id).Result()
 	if err != nil {
 		log.Println(err)
 		return ""
 	}
 	if clear {
-		err := rs.client.Del(ctx, id).Err()
+		err := rs.client.Del(id).Err()
 		if err != nil {
 			log.Println(err)
 			return ""
 		}
 	}
 	return  val
-}*/
+}
 
 
 

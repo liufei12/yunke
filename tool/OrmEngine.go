@@ -3,7 +3,7 @@ package tool
 import (
 	"github.com/go-xorm/xorm"
 	"yunke/model"
-	_ "github.com_bak/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var DbEngine *Orm

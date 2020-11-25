@@ -1,7 +1,7 @@
 {
     "app_name": "yunke",
     "app_mode": "debug",
-    "app_host": "localhost",
+    "app_host": "192.168.11.65",
     "app_port": "8080",
     "sms": {
         "sign_name": "云课网",
@@ -13,7 +13,7 @@
     "database": {
         "driver": "mysql",
         "user": "root",
-        "password": "123456",
+        "password": "root",
         "host": "127.0.0.1",
         "port": "3306",
         "db_name": "yunke",
@@ -25,5 +25,8 @@
         "port": "6379",
         "password": "",
         "db": "0"
+    },
+    "proxy": {
+        "rpc": "192.168.11.65:8004"
     }
 }

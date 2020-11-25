@@ -15,5 +15,6 @@ type FoodCatagory struct {
 	//食品类别链接
 	LinkUrl		string	`xorm:"varchar(255)" json:"link_url"`
 	//该类别是否存在服务状态
-	IsInServing	int	`xorm:"int" json:"is_in_serving"`
+	IsInServing	int	`xorm:"int,COLUMN:is_in_serving" json:"is_in_serving"`
 }
+

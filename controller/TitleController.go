@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
@@ -16,6 +17,15 @@ type TitleController struct {
 }
 
 func (t *TitleController) List(ctx *gin.Context){
+
+	/*fmt.Println("555555555555")
+	us := service.UserService{}
+	userList := us.GrpcGetUser(map[string]interface{}{
+		"mobile": "15874296765",
+	})
+	fmt.Println(userList)*/
+
+
 
 	titleId := ctx.DefaultQuery("typeId", "1")
 	titleType := ctx.DefaultQuery("type", "php")
