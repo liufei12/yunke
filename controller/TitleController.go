@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
@@ -24,8 +23,6 @@ func (t *TitleController) List(ctx *gin.Context){
 		"mobile": "15874296765",
 	})
 	fmt.Println(userList)*/
-
-
 
 	titleId := ctx.DefaultQuery("typeId", "1")
 	titleType := ctx.DefaultQuery("type", "php")
